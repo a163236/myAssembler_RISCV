@@ -1,6 +1,5 @@
-addi a1, a0, 12
-addi a2, a0, 1
-addi a4, a0, 100
-add a1, a1, a2
-bne a1, a4, -4
-add a1, a4, a1
+addi a1, a0, 22
+sw a1, 0(ra)
+lw ra, 0(a1)
+sw a1, 0(ra)
+add a1, a1, a1
