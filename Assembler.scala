@@ -22,6 +22,7 @@ object Assembler extends App {
       case "and"  => "0000000"+fivebitReg(asm(3))+fivebitReg(asm(2))+"111"+fivebitReg(asm(1))+"0110011"
       // I形式
       case "jalr" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"1100111"
+      case "lw"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"000"+fivebitReg(asm(1))+"0000011"
       case "addi" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0010011"
       case "slti" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"010"+fivebitReg(asm(1))+"0010011"
       case "sltiu"=> imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"011"+fivebitReg(asm(1))+"0010011"
@@ -51,8 +52,8 @@ object Assembler extends App {
       case _ => ""
     }
 
-    println(inst)
-    //println("memory.write("+counter+".U, \"b"+inst+"\".U(32.W))")
+    //println(inst)
+    println("memory.write("+counter+".U, \"b"+inst+"\".U(32.W))")
     counter += 4
   }
   // spとかa0とかをレジスタ番号にする
