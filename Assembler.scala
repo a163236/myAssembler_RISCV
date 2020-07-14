@@ -22,6 +22,8 @@ object Assembler extends App {
       case "and"  => "0000000"+fivebitReg(asm(3))+fivebitReg(asm(2))+"111"+fivebitReg(asm(1))+"0110011"
       // I形式
       case "jalr" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"1100111"
+      case "lb"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"000"+fivebitReg(asm(1))+"0000011"
+      case "lh"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"001"+fivebitReg(asm(1))+"0000011"
       case "lw"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"010"+fivebitReg(asm(1))+"0000011"
       case "addi" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0010011"
       case "slti" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"010"+fivebitReg(asm(1))+"0010011"
@@ -30,8 +32,8 @@ object Assembler extends App {
       case "ori" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"110"+fivebitReg(asm(1))+"0010011"
       case "andi" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"111"+fivebitReg(asm(1))+"0010011"
       // S形式
-      case "sb"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(3))+fivebitReg(asm(1))+"000"+imm(asm(2)).takeRight(5)+"0100011"
-      case "sh"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(3))+fivebitReg(asm(1))+"001"+imm(asm(2)).takeRight(5)+"0100011"
+      case "sb"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(1))+fivebitReg(asm(3))+"000"+imm(asm(2)).takeRight(5)+"0100011"
+      case "sh"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(1))+fivebitReg(asm(3))+"001"+imm(asm(2)).takeRight(5)+"0100011"
       case "sw"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(1))+fivebitReg(asm(3))+"010"+imm(asm(2)).takeRight(5)+"0100011"
       // B形式         imm[12|10:5]                                       rs2                   rs1           funct3
       case "beq"  => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"000"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
