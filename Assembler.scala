@@ -49,8 +49,8 @@ object Assembler extends App {
       case "lui"  => imm(asm(2))+fivebitReg(asm(1))+"0110111"
       case "auipc"=> imm(asm(2))+fivebitReg(asm(1))+"0010111"
       // J形式
-      case "j"    => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).tail.drop(12)+"00000"+"1101111"  // jal x0 offset と同じ
-      case "jal"  => imm(asm(2)).head+imm(asm(2)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).tail.drop(12)+imm(asm(2))+"1101111"
+      case "j"    => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).drop(12)+"00000"+"1101111"  // jal x0 offset と同じ
+      case "jal"  => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).drop(12)+imm(asm(2))+"1101111"
       //
       case "fence"=> ""
       case "ecall" => "000000000000"+"00000"+"000"+"00000"+"1110011"
