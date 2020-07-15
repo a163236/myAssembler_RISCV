@@ -10,6 +10,7 @@ object Assembler extends App {
     val asm = c.replaceAll("[ |(|)|,]+", " ").trim.split("[ ]")
     val inst = asm(0) match{  // asm(0)はopcode
       // R形式
+      case "srai" => "0100000"+imm(asm(3)).takeRight(5)+fivebitReg(asm(2))+"101"+fivebitReg(asm(1))+"0010011"
       case "add"  => "0000000"+fivebitReg(asm(3))+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0110011"
       case "sub"  => "0100000"+fivebitReg(asm(3))+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0110011"
       case "sll"  => "0000000"+fivebitReg(asm(3))+fivebitReg(asm(2))+"001"+fivebitReg(asm(1))+"0110011"
@@ -25,6 +26,8 @@ object Assembler extends App {
       case "lb"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"000"+fivebitReg(asm(1))+"0000011"
       case "lh"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"001"+fivebitReg(asm(1))+"0000011"
       case "lw"   => imm(asm(2)).takeRight(12)+fivebitReg(asm(3))+"010"+fivebitReg(asm(1))+"0000011"
+      case "mv"   => "000000000000"+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0010011"  // addi rd rs1
+      case "li"   => imm(asm(2)).takeRight(12)+"00000"+"000"+fivebitReg(asm(1))+"0010011" // addi rd, rs, x0と同じ
       case "addi" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"000"+fivebitReg(asm(1))+"0010011"
       case "slti" => imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"010"+fivebitReg(asm(1))+"0010011"
       case "sltiu"=> imm(asm(3)).takeRight(12)+fivebitReg(asm(2))+"011"+fivebitReg(asm(1))+"0010011"
@@ -46,7 +49,8 @@ object Assembler extends App {
       case "lui"  => imm(asm(2))+fivebitReg(asm(1))+"0110111"
       case "auipc"=> imm(asm(2))+fivebitReg(asm(1))+"0010111"
       // J形式
-      case "jal"  => imm(asm(3)).head+imm(asm(3)).takeRight(11).init+imm(asm(3))(12)+imm(asm(3)).tail.drop(12)+imm(asm(1))+"1101111"
+      case "j"    => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).tail.drop(12)+"00000"+"1101111"  // jal x0 offset と同じ
+      case "jal"  => imm(asm(2)).head+imm(asm(2)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).tail.drop(12)+imm(asm(2))+"1101111"
       //
       case "fence"=> ""
       case "ecall" => "000000000000"+"00000"+"000"+"00000"+"1110011"
@@ -93,7 +97,41 @@ object Assembler extends App {
       case "t4" => 29
       case "t5" => 30
       case "t6" => 31
-      case _ => 0
+
+      case "x0" => 0
+      case "x1" => 1
+      case "x2" => 2
+      case "x3" => 3
+      case "x4" => 4
+      case "x5" => 5
+      case "x6" => 6
+      case "x7" => 7
+      case "x8" => 8
+      case "x9" => 9
+      case "x10" => 10
+      case "x11" => 11
+      case "x12" => 12
+      case "x13" => 13
+      case "x14" => 14
+      case "x15" => 15
+      case "x16" => 16
+      case "x17" => 17
+      case "x18" => 18
+      case "x19" => 19
+      case "x20" => 20
+      case "x21" => 21
+      case "x22" => 22
+      case "x23" => 23
+      case "x24" => 24
+      case "x25" => 25
+      case "x26" => 26
+      case "x27" => 27
+      case "x28" => 28
+      case "x29" => 29
+      case "x30" => 30
+      case "x31" => 31
+      case "x32" => 32
+
     }
     // 上のを2進数の文字列にして、5文字に足りないのを0パディング
     "%5s".format(tmp.toBinaryString).replace(" ","0")
