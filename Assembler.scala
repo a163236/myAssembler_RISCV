@@ -39,18 +39,18 @@ object Assembler extends App {
       case "sh"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(1))+fivebitReg(asm(3))+"001"+imm(asm(2)).takeRight(5)+"0100011"
       case "sw"   => imm(asm(2)).takeRight(12).take(7)+fivebitReg(asm(1))+fivebitReg(asm(3))+"010"+imm(asm(2)).takeRight(5)+"0100011"
       // B形式         imm[12|10:5]                                       rs2                   rs1           funct3
-      case "beq"  => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"000"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
-      case "bne"  => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"001"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
-      case "blt"  => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"100"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
-      case "bge"  => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"101"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
-      case "bltu" => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"110"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
-      case "bgeu" => imm(asm(3))(13)+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"111"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "beq"  => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"000"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "bne"  => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"001"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "blt"  => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"100"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "bge"  => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"101"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "bltu" => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"110"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
+      case "bgeu" => imm(asm(3)).takeRight(13).head+imm(asm(3)).takeRight(11).take(6)+fivebitReg(asm(2))+fivebitReg(asm(1))+"111"+imm(asm(3)).takeRight(5).take(4) +imm(asm(3))(12)+"1100011"
       // U形式
-      case "lui"  => imm(asm(2))+fivebitReg(asm(1))+"0110111"
-      case "auipc"=> imm(asm(2))+fivebitReg(asm(1))+"0010111"
+      case "lui"  => imm(asm(2)).drop(12)+fivebitReg(asm(1))+"0110111"
+      case "auipc"=> imm(asm(2)).drop(12)+fivebitReg(asm(1))+"0010111"
       // J形式
-      case "j"    => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).drop(12)+"00000"+"1101111"  // jal x0 offset と同じ
-      case "jal"  => imm(asm(1)).head+imm(asm(1)).takeRight(11).init+imm(asm(1))(12)+imm(asm(1)).drop(12)+imm(asm(2))+"1101111"
+      case "j"    => imm(asm(1)).takeRight(21).head+imm(asm(1)).takeRight(11).init+imm(asm(1)).takeRight(12).head+imm(asm(1)).takeRight(20).dropRight(12)+"00000"+"1101111"  // jal x0 offset と同じ
+      case "jal"  => imm(asm(2)).takeRight(21).head+imm(asm(2)).takeRight(11).init+imm(asm(2)).takeRight(12).head+imm(asm(2)).takeRight(20).dropRight(12)+imm(asm(1))+"1101111"
       //
       case "fence"=> ""
       case "ecall" => "000000000000"+"00000"+"000"+"00000"+"1110011"
@@ -138,7 +138,7 @@ object Assembler extends App {
   }
 
   def imm(name:String): String ={
-    if(name.toInt<0) name.toInt.toBinaryString.takeRight(20)  // 負のとき
-    else "%20s".format(name.toInt.toBinaryString).replace(" ", "0")
+    if(name.toInt<0) name.toInt.toBinaryString.takeRight(32)  // 負のとき
+    else "%32s".format(name.toInt.toBinaryString).replace(" ", "0")
   }
 }
