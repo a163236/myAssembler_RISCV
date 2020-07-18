@@ -10,10 +10,10 @@ RV32Iのアセンブリを機械語に翻訳するプログラム。
 このリポジトリをダウンロードして、IntelliJ IDEAでこのフォルダを開くと使えます。
 
 ## 使い方
-Assembly.txtに実行したいAssemblyを書く
+Assembly.asmに実行したいAssemblyをRV32Iで書く
 /src/main/scala/Assembler/Assemblerが実行ファイルなのでこれを実行する。
 
-すると、Assembly.txtに書いていたアセンブリがコンソールに出力される。
+すると、Assembly.asmに書いていたアセンブリがコンソールに出力される。
 
 ## 連絡先
 [@a163236](https://twitter.com/a163236)まで

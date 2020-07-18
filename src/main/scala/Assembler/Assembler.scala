@@ -3,7 +3,7 @@ import scala.io.Source
 
 object Assembler extends App {
   val path1 = System.getProperty("user.dir") //現在のディレクトリパス
-  val lines = Source.fromFile("Assembly.txt").getLines()
+  val lines = Source.fromFile("Assembly.asm").getLines()
   var counter = 0
   lines.foreach { c =>
 

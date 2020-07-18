@@ -1,0 +1,15 @@
+li x3,10
+li x4,1
+blt x4,x3,12
+mv x4,x3
+j 40
+li x4,1
+li x5,1
+li x7,2
+bge x7,x3,24
+mv x6,x4
+add x4,x4,x5
+mv x5,x6
+addi x7,x7,1
+j -20
+mv a0,x4
