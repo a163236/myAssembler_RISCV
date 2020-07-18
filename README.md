@@ -11,7 +11,9 @@ RV32Iのアセンブリを機械語に翻訳するプログラム。
 
 ## 使い方
 Assembly.txtに実行したいAssemblyを書く
-sbtを使う場合はプロジェクト直下にAssembly.txtを置いて、/src/main/scalaにAssembler.scalaを配置する。
+/src/main/scala/Assembler/Assemblerが実行ファイルなのでこれを実行する。
+
+すると、Assembly.txtに書いていたアセンブリがコンソールに出力される。
 
 ## 連絡先
 [@a163236](https://twitter.com/a163236)まで
