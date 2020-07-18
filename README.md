@@ -1,4 +1,4 @@
-# myAssembler
+# myAssembler_RISCV
 ScalaによるRISC-Vのアセンブリを機械語にアセンブルするアセンブラ
 
 ## 概要
