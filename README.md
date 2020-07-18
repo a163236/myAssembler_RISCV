@@ -25,8 +25,7 @@ RV32Iのアセンブリを機械語に翻訳するプログラム。
 ## 使い方
 Assembly.asmに実行したいAssemblyをRV32Iで書く
 /src/main/scala/Assembler/Assemblerが実行ファイルなのでこれを実行する。
-
-すると、Assembly.asmに書いていたアセンブリがコンソールに出力される。
+そうすると、Assembly.asmに書いていたアセンブリがコンソールに出力される。
 
 ## 連絡先
 [@a163236](https://twitter.com/a163236)まで
