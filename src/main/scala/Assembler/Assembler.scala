@@ -59,8 +59,8 @@ object Assembler extends App {
       case _ => ""
     }
 
-    println(inst)
-    //println("memory.write("+counter+".U, \"b"+inst+"\".U(32.W))")
+    //println(inst)
+    println("memory.write("+counter+".U, \"b"+inst+"\".U(32.W))")
     counter += 4
   }
   // spとかa0とかをレジスタ番号にする
