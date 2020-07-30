@@ -3,8 +3,7 @@ ScalaによるRISC-Vのアセンブリを機械語にするプログラム。
 
 ## 概要
 RV32Iのアセンブリを機械語に翻訳するプログラム。
-詳しい説明は[こちら](https://qiita.com/a163236/items/1ea950f743457ede5d0b)の方が分かりやすいです。
-未実装の命令がいくつかあります。
+未実装の命令がいくつかある。
 このプログラムでは、
 
 ![](.README_images/85ed5ff0.png)
@@ -26,6 +25,3 @@ RV32Iのアセンブリを機械語に翻訳するプログラム。
 Assembly.asmに実行したいAssemblyをRV32Iで書く
 /src/main/scala/Assembler/Assemblerが実行ファイルなのでこれを実行する。
 そうすると、Assembly.asmに書いていたアセンブリがコンソールに出力される。
-
-## 連絡先
-[@a163236](https://twitter.com/a163236)まで
