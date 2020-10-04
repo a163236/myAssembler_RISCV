@@ -1,8 +1,7 @@
-addi a1, a0, 12
-addi a2, a0, 100
-add a1, a1, a2
-sb a1, 1(x0)
-lw a2, 0(x0)
-nop
+li a0, 0
+lui	sp,0xfffff
+addi	sp,sp,-96
+sb	sp,2(ra)
+lh	a4,2(ra)
 nop
 nop
